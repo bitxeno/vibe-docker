@@ -4,6 +4,7 @@ FROM ubuntu:24.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install base dependencies and tools
+# software-properties-common will lead to lsetxattr security.capability error
 RUN apt-get update && apt-get install -y \
     curl \
     wget \
@@ -16,11 +17,10 @@ RUN apt-get update && apt-get install -y \
     rclone
 
 # Add deadsnakes PPA for Python 3.13
-RUN add-apt-repository -y ppa:deadsnakes/ppa && \
-    apt-get install -y \
-    python3.13 \
-    python3.13-venv \
-    python3.13-dev \
+RUN apt-get install -y \
+    python3 \
+    python3-venv \
+    python3-dev \
     && apt-get install -y python3-pip
 
 # Set Python 3.13 as default and create alias
