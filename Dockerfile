@@ -16,16 +16,15 @@ RUN apt-get update && apt-get install -y \
     jq \
     rclone
 
-# Add deadsnakes PPA for Python 3.13
+# Install Python 3
 RUN apt-get install -y \
     python3 \
     python3-venv \
     python3-dev \
     && apt-get install -y python3-pip
 
-# Set Python 3.13 as default and create alias
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1 && \
-    ln -sf /usr/bin/python3.13 /usr/bin/python
+# Set Python 3 as default and create alias
+RUN ln -sf /usr/bin/python3 /usr/bin/python
 
 # Create opencode user and workspace
 RUN useradd -m -s /bin/bash opencode && \
