@@ -5,6 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install base dependencies and tools
 RUN apt-get update && apt-get install -y \
+    software-properties-common \
     curl \
     wget \
     git \
