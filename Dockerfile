@@ -8,12 +8,12 @@ RUN apt-get update && apt-get install -y \
     curl \
     wget \
     git \
+    build-essential \
     ca-certificates \
     unzip \
     zip \
     jq \
     rclone
-
 
 
 # Set entrypoint and default command
