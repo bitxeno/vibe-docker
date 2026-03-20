@@ -76,6 +76,14 @@ RUN curl -fsSL https://opencode.ai/install | bash && \
     export PATH="${PATH}:$(find /root -name opencode -type f -executable 2>/dev/null | xargs dirname | head -1)" || true
 ENV PATH="${PATH}:/root/.local/bin:/root/.opencode/bin"
 
+# Install jj
+RUN ARCH=$(uname -m); \
+    mkdir -p /usr/local/jj \
+    wget https://github.com/jj-vcs/jj/releases/download/v0.39.0/jj-v0.39.0-${ARCH}-unknown-linux-musl.tar.gz && \
+    tar -C /usr/local/jj -xzf jj-v0.39.0-${ARCH}-unknown-linux-musl.tar.gz && \
+    rm jj-v0.39.0-${ARCH}-unknown-linux-musl.tar.gz
+ENV PATH="${PATH}:/usr/local/jj"
+
 # Verify installations
 RUN echo "=== Python ===" && python3 --version && \
     echo "=== Node.js ===" && node --version && \
