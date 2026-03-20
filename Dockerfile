@@ -13,17 +13,15 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     unzip \
     zip \
-    jq \
-    && rm -rf /var/lib/apt/lists/*
+    jq
 
 # Add deadsnakes PPA for Python 3.13
 RUN add-apt-repository -y ppa:deadsnakes/ppa && \
-    apt-get update && apt-get install -y \
+    apt-get install -y \
     python3.13 \
     python3.13-venv \
     python3.13-dev \
-    && apt-get install -y python3-pip \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get install -y python3-pip
 
 # Set Python 3.13 as default and create alias
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1 && \
@@ -35,8 +33,7 @@ RUN useradd -m -s /bin/bash opencode && \
     chown -R opencode:opencode /home/opencode && \
     apt-get install -y sudo && \
     echo "opencode ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/opencode && \
-    chmod 0440 /etc/sudoers.d/opencode && \
-    rm -rf /var/lib/apt/lists/*
+    chmod 0440 /etc/sudoers.d/opencode
 
 # Copy opencode config to workspace
 COPY opencode.json /home/opencode/workspace/
