@@ -5,7 +5,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install base dependencies and tools
 RUN apt-get update && apt-get install -y \
-    software-properties-common \
     curl \
     wget \
     git \
@@ -14,11 +13,6 @@ RUN apt-get update && apt-get install -y \
     unzip \
     zip \
     jq \
-    htop \
-    tmux \
-    openssh-client \
-    rclone \
-    magic-wormhole \
     && rm -rf /var/lib/apt/lists/*
 
 # Add deadsnakes PPA for Python 3.13
@@ -38,7 +32,7 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1
 RUN useradd -m -s /bin/bash opencode && \
     mkdir -p /home/opencode/workspace && \
     chown -R opencode:opencode /home/opencode && \
-    apt-get update && apt-get install -y sudo && \
+    apt-get install -y sudo && \
     echo "opencode ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/opencode && \
     chmod 0440 /etc/sudoers.d/opencode && \
     rm -rf /var/lib/apt/lists/*
@@ -71,9 +65,9 @@ RUN if [ "$(uname -m)" = "aarch64" ]; then \
     else \
       GOARCH=$(uname -m); \
     fi && \
-    wget https://go.dev/dl/go1.23.5.linux-${GOARCH}.tar.gz && \
-    rm -rf /usr/local/go && tar -C /usr/local -xzf go1.23.5.linux-${GOARCH}.tar.gz && \
-    rm go1.23.5.linux-${GOARCH}.tar.gz
+    wget https://go.dev/dl/go1.26.1.linux-${GOARCH}.tar.gz && \
+    rm -rf /usr/local/go && tar -C /usr/local -xzf go1.26.1.linux-${GOARCH}.tar.gz && \
+    rm go1.26.1.linux-${GOARCH}.tar.gz
 ENV PATH="${PATH}:/usr/local/go/bin"
 
 # Install Rust
