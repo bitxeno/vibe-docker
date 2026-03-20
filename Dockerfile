@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     unzip \
     zip \
-    jq
+    jq \
+    rclone
 
 # Add deadsnakes PPA for Python 3.13
 RUN add-apt-repository -y ppa:deadsnakes/ppa && \
